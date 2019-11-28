@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "DEBUG=robot-arm:* node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "DEBUG=robot-arm:* nodemon src/index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

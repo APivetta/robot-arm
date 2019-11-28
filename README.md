@@ -9,9 +9,12 @@ Proyecto basado en el siguiente artículo de [Instructables](https://www.instruc
   - [Armado](#armado)
     - [Lista de materiales](#lista-de-materiales)
     - [Guía de ensamble](#gu%c3%ada-de-ensamble)
-  - [Software](#software)
+  - [Preparación del Software](#preparaci%c3%b3n-del-software)
     - [Firmware](#firmware)
     - [Servidor Node.js](#servidor-nodejs)
+  - [Controlar el Brazo](#controlar-el-brazo)
+    - [Controlando el Brazo a través de la API](#controlando-el-brazo-a-trav%c3%a9s-de-la-api)
+    - [Controlando el Brazo a través de la Aplicación Web](#controlando-el-brazo-a-trav%c3%a9s-de-la-aplicaci%c3%b3n-web)
 
 ## Armado
 
@@ -32,7 +35,7 @@ Proyecto basado en el siguiente artículo de [Instructables](https://www.instruc
   - Cablear la electronica siguiendo el siguiente diagrama:
 
 
-## Software
+## Preparación del Software
 Para controlar el brazo robot se utiliza el firmware [Firmata](https://github.com/firmata/arduino) en la placa NodeMCU y un servidor [Node.js](https://nodejs.org/en/) utilizando la librería de robótica [johnny-five](http://johnny-five.io/).
 
 ### Firmware
@@ -57,3 +60,38 @@ char wpa_passphrase[] = "your_wpa_passphrase";
 
 ### Servidor Node.js
 Para correr el servidor Node.js que controla el brazo clonarse este repositorio y seguir los siguientes pasos:
+- Instalar [Node.js](https://nodejs.org/en/download/).
+- Navegar a la carpeta raíz de este repositorio y executar `npm install`.
+- Asegurarse de tener el brazo robot conectado a la red y apuntando a la IP de este servidor.
+- Ejecutar `npm start`. Si todo esta correctamente configurado el servidor se conectará al brazo e indicará que ya esta disponible para recibir ordenes.
+- Por defecto el servidor se levanta en el puerto `8080` pero se lo puede cambiar asignando la variable de entorno `PORT`, por ejemplo: `PORT=3000 npm start`.
+
+
+## Controlar el Brazo
+
+### Controlando el Brazo a través de la API
+
+Una vez levantado el servidor se pueden enviar comandos por HTTP de la siguiente manera:
+
+```
+curl -X POST \
+  htttp://localhost:8080/move \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "base": 0,
+    "low": 45,
+    "mid": 90,
+    "up": 120,
+    "rotate": 180,
+    "claw": 30
+}'
+```
+
+Los nombres de los servos son `base, low, mid, up, rotate y claw` y representan cada servo que tiene el brazo. En cada request HTTP a `/move` uno puede indicar todos los servos o tan solo los que desee, y darle un valor de `0` a `180` que representa el ángulo que va a tomar el servo indicado. Valores por fuera de este rango serán ignorados y no se tomará accion alguna.
+
+### Controlando el Brazo a través de la Aplicación Web
+
+Para facilitar el uso del Brazo robótico se desarrolló una simple aplicación web que interactua con el servidor Node.js. Para levantarla realizar los siguientes pasos:
+- Navegar a la carpeta `./controller-app` de este repositorio y executar `npm install`.
+- Ejecutar `npm start`. Se abrirá un navegador con la aplicación web.
