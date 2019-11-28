@@ -46,7 +46,7 @@ Para instalar el firmware Firmata en la placa NodeMCU seguir los siguientes paso
 - En el Archivo ```wifiConfig.h``` completar con los datos de la red wifi, IP del servidor Node.js y parámetros adicionales según sean necesario y guardar las modificaciones.
 
 ```
-// Tipicamente los parametros a compretar son:
+// Tipicamente los parametros a completar son:
 
 char ssid[] = "your_network_name";
 char wpa_passphrase[] = "your_wpa_passphrase";
@@ -63,7 +63,7 @@ Para correr el servidor Node.js que controla el brazo clonarse este repositorio 
 - Instalar [Node.js](https://nodejs.org/en/download/).
 - Navegar a la carpeta raíz de este repositorio y executar `npm install`.
 - Asegurarse de tener el brazo robot conectado a la red y apuntando a la IP de este servidor.
-- Ejecutar `npm start`. Si todo esta correctamente configurado el servidor se conectará al brazo e indicará que ya esta disponible para recibir ordenes.
+- Ejecutar `npm start`. Si todo está correctamente configurado el servidor se conectará al brazo e indicará que ya esta disponible para recibir ordenes.
 - Por defecto el servidor se levanta en el puerto `8080` pero se lo puede cambiar asignando la variable de entorno `PORT`, por ejemplo: `PORT=3000 npm start`.
 
 
@@ -75,7 +75,7 @@ Una vez levantado el servidor se pueden enviar comandos por HTTP de la siguiente
 
 ```
 curl -X POST \
-  htttp://localhost:8080/move \
+  http://localhost:8080/move \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
