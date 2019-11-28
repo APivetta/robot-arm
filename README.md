@@ -35,6 +35,7 @@ Proyecto basado en el siguiente artículo de [Instructables](https://www.instruc
   - Cablear la electronica siguiendo el siguiente diagrama:
 ![Schematics](robot_arm_schematics.jpeg)
 *Nota 1: que en el diagrama solo se dibujaron 2 de los 7 servos del brazo, conectar los restantes de manera similar, cada uno a un nuevo pin PWM de la placa PCA9685 y al canal de 5V y Tierra del protoboard.*
+
 *Nota 2: Se recomiuenda al momento de cablear la electronica montar el NodeMCU en el protoboard. En el diagrama aparece separado a fines de simplificar la visualización de las conexiones.*
 
 ## Preparación del Software
